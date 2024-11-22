@@ -95,13 +95,19 @@ class FrechetInceptionDistance(Metric[torch.Tensor]):
         self.model.requires_grad_(False)
 
         # Initialize state variables used to compute FID
-        self._add_state("real_sum", torch.zeros(feature_dim, device=device))
         self._add_state(
-            "real_cov_sum", torch.zeros((feature_dim, feature_dim), device=device)
+            "real_sum", torch.zeros(feature_dim, device=device, dtype=torch.float64)
         )
-        self._add_state("fake_sum", torch.zeros(feature_dim, device=device))
         self._add_state(
-            "fake_cov_sum", torch.zeros((feature_dim, feature_dim), device=device)
+            "real_cov_sum",
+            torch.zeros((feature_dim, feature_dim), device=device, dtype=torch.float64),
+        )
+        self._add_state(
+            "fake_sum", torch.zeros(feature_dim, device=device, dtype=torch.float64)
+        )
+        self._add_state(
+            "fake_cov_sum",
+            torch.zeros((feature_dim, feature_dim), device=device, dtype=torch.float64),
         )
         self._add_state("num_real_images", torch.tensor(0, device=device).int())
         self._add_state("num_fake_images", torch.tensor(0, device=device).int())
@@ -200,6 +206,7 @@ class FrechetInceptionDistance(Metric[torch.Tensor]):
         fid = gaussian_frechet_distance(
             real_mean.squeeze(), real_cov, fake_mean.squeeze(), fake_cov
         )
+        fid = fid.to(torch.float32)
         return fid
 
     def _FID_parameter_check(

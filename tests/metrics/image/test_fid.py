@@ -78,7 +78,7 @@ class TestFrechetInceptionDistance(MetricClassTester):
             299,
         )
         self._test_fid(
-            imgs=imgs, feature_dim=2048, expected_result=torch.tensor(4.48304)
+            imgs=imgs, feature_dim=2048, expected_result=torch.tensor(4.58449)
         )
 
     def test_fid_random_data_custom_model(self) -> None:
