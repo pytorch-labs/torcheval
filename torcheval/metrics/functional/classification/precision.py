@@ -159,8 +159,8 @@ def _precision_compute(
         # predictions and the ground truth.
         bad_class = torch.nonzero(torch.isnan(precision))
         logging.warning(
-            f"{bad_class} classes have zero instances in both the "
-            "predictions and the ground truth labels. Precision is still logged "
+            f"{bad_class} classes have zero instances in either the "
+            "predictions or the ground truth labels. Precision is still logged "
             "as zero."
         )
 
