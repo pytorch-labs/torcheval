@@ -32,7 +32,7 @@ def bleu_score(
 
         Examples:
             >>> import torch
-            >>> from torcheval.metrics.functional.text import bleu
+            >>> from torcheval.metrics.functional.text import bleu_score
             >>> candidates = ["the squirrel is eating the nut"]
             >>> references = [["a squirrel is eating a nut", "the squirrel is eating a tasty nut"]]
             >>> bleu_score(candidates, references, n_gram=4)
